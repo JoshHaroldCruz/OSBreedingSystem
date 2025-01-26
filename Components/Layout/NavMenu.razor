@@ -1,0 +1,40 @@
+﻿<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">Pet Breeding System</a>
+    </div>
+</div>
+
+<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
+
+<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
+    <nav class="flex-column">
+
+        @* Home *@
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+            </NavLink>
+        </div>
+
+        @* My Pets *@
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="MyPets">
+                <span class="bi-pet-icon" aria-hidden="true"></span> My Pets
+            </NavLink>
+        </div>
+
+        @* Breed *@
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="Breed">
+                <span class="bi-hearts" aria-hidden="true"></span> Breed
+            </NavLink>
+        </div>
+
+        @* System Administrator *@
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="SystemAdmin">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> System Administrator
+            </NavLink>
+        </div>
+    </nav>
+</div>

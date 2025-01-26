@@ -1,0 +1,256 @@
+﻿@page "/MyPets"
+@using OSBreedingSystem.Models;
+@using OSBreedingSystem.Models.DTOs;
+@using OSBreedingSystem.Services;
+@inject PetService PetService
+
+
+<h1>My Pets</h1>
+
+<div style="margin-bottom: 15px; display: flex; align-items: center; justify-content: space-between;">
+    <div>
+        <label for="species-filter">Species:</label>
+        <select id="species-filter">
+            <option value="all">All</option>
+            <option value="dog">Dog</option>
+            <option value="cat">Cat</option>
+            <option value="tarantula">Tarantula</option>
+            <option value="tortoise">Tortoise</option>
+            <option value="bird">Bird</option>
+        </select>
+
+        <label for="gender-filter">Gender:</label>
+        <select id="gender-filter">
+            <option value="all">All</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+    </div>
+
+    <div>
+        <input type="text" placeholder="Search..." style="border-radius: 10px; padding: 5px; width: 250px; border: 1px solid #ccc;" />
+        <button style="border-radius: 10px; padding: 5px 15px; background-color: #512bdf; color: white; border: none;">
+            Search
+        </button>
+        <button style="border-radius: 10px; padding: 5px 15px; background-color: #512bdf; color: white; border: none;" @onclick="ShowPopup">
+            Add Pet
+        </button>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Species</th>
+            <th>Breed</th>
+            <th>Gender</th>
+            <th>Birthdate</th>
+            <th>Cage</th>
+            <th>Update</th>
+            <th>Delete</th>
+            <th>Information</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Pets == null)
+        {
+            <tr><td colspan="9">Loading...</td></tr>
+        }
+        else
+        {
+            @foreach (var pet in Pets)
+            {
+                <tr>
+                    <td>@pet.PetName</td>
+                    <td>@pet.SpeciesName</td>
+                    <td>@pet.BreedName</td>
+                    <td>@pet.Gender</td>
+                    <td>@(pet.PetBirthdate.HasValue ? pet.PetBirthdate.Value.ToString("yyyy-MM-dd") : "N/A")</td>
+                    <td>@pet.CageNumber</td>
+                    <td><button class="btn btn-warning btn-sm">Update</button></td>
+                    <td><button class="btn btn-danger btn-sm">Delete</button></td>
+                    <td style="text-align: center; vertical-align: middle;"><a href="#">view</a></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+
+@* Add Pet Modal*@
+@if (ShowAddPet)
+{
+    <div class="custom-modal">
+        <div class="modal-content">
+            <h3>Add Pet</h3>
+
+            <label>Name:</label>
+            <input type="text" class="form-control" @bind="NewPet.PetName" placeholder="Enter pet name" />
+
+            <label>Gender:</label>
+            <select class="form-control" @bind="NewPet.Gender">
+                <option value="">-- Select Gender --</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+
+            <label>Species:</label>
+            <select class="form-control" @bind="SelectedSpecies" @bind:event="onchange">
+                <option value="">-- Select Species --</option>
+                <option value="dog">Dog</option>
+                <option value="cat">Cat</option>
+                <option value="bird">Bird</option>
+                <option value="tortoise">Tortoise</option>
+                <option value="tarantula">Tarantula</option>
+            </select>
+
+            <label>Breed:</label>
+            <select class="form-control" @bind="SelectedBreed">
+                <option value="">-- Select Breed --</option>
+                @foreach (var breed in AvailableBreeds)
+                {
+                    <option value="@breed">@breed</option>
+                }
+            </select>
+
+            <label>Birthdate:</label>
+            <input type="date" class="form-control" @bind="NewPet.PetBirthdate" />
+
+            <div class="modal-buttons">
+                <button class="btn btn-secondary" @onclick="CloseModal">Cancel</button>
+                <button class="btn btn-success" @onclick="SavePet">Save</button>
+            </div>
+        </div>
+    </div>
+}
+<style>
+    .custom-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-content {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        width: 350px;
+        text-align: center;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+    }
+
+    .btn {
+        padding: 8px 15px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-secondary {
+        background-color: gray;
+        color: white;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        color: white;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 8px;
+        margin: 5px 0;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+        .form-control:focus {
+            border-color: #512bdf;
+            box-shadow: 0 0 5px rgba(81, 43, 223, 0.5);
+            outline: none;
+        }
+</style>
+
+@code {
+    private List<PetDto> Pets = new();
+    private PetCreateDto NewPet = new();
+    private bool ShowAddPet = false;
+
+    private string SelectedSpecies = "";
+    private string SelectedBreed = "";
+    private List<string> AvailableBreeds = new();
+
+    private Dictionary<string, List<string>> SpeciesBreeds = new()
+    {
+        { "dog", new List<string> { "German Shepherd", "Beagle", "Pug", "Dachshund", "Rottweiler" } },
+        { "cat", new List<string> { "British Shorthair", "Ragdoll", "Scottish Fold", "Persian Cat", "Munchkin Cat" } },
+        { "bird", new List<string> { "Cockatiel", "Green Cheek Conure", "Sun Conure", "Indian Ring Neck", "Eclectus Parrot" } },
+        { "tortoise", new List<string> { "Sulcata Tortoise", "Red-footed Tortoise" } },
+        { "tarantula", new List<string> { "Chaco Golden Knee", "Mexican Fireleg", "Mexican Red-Knee", "Greenbottle Blue", "Antilles Pinktoe" } }
+    };
+
+    private Dictionary<string, int> BreedMapping = new()
+    {
+        { "German Shepherd", 1 }, { "Beagle", 2 }, { "Pug", 3 }, { "Dachshund", 4 }, { "Rottweiler", 5 },
+        { "British Shorthair", 6 }, { "Ragdoll", 7 }, { "Scottish Fold", 8 }, { "Persian Cat", 9 }, { "Munchkin Cat", 10 },
+        { "Cockatiel", 11 }, { "Green Cheek Conure", 12 }, { "Sun Conure", 13 }, { "Indian Ring Neck", 14 }, { "Eclectus Parrot", 15 },
+        { "Sulcata Tortoise", 16 }, { "Red-footed Tortoise", 17 },
+        { "Chaco Golden Knee", 18 }, { "Mexican Fireleg", 19 }, { "Mexican Red-Knee", 20 }, { "Greenbottle Blue", 21 }, { "Antilles Pinktoe", 22 }
+    };
+
+    protected override async Task OnInitializedAsync()
+    {
+        Pets = await PetService.GetPetsAsync();
+    }
+
+    private void ShowPopup() => ShowAddPet = true;
+    private void CloseModal() => ShowAddPet = false;
+
+    private void UpdateBreeds(ChangeEventArgs e)
+    {
+        SelectedSpecies = e.Value.ToString();
+
+        if (SpeciesBreeds.ContainsKey(SelectedSpecies))
+            AvailableBreeds = SpeciesBreeds[SelectedSpecies];
+        else
+            AvailableBreeds = new List<string>();
+
+        SelectedBreed = "";
+        StateHasChanged();
+    }
+
+    private async Task SavePet()
+    {
+        if (string.IsNullOrEmpty(NewPet.PetName) || string.IsNullOrEmpty(SelectedBreed)) return;
+
+        if (BreedMapping.TryGetValue(SelectedBreed, out int breedId))
+        {
+            NewPet.BreedId = breedId;
+        }
+        else
+        {
+            Console.WriteLine("Breed not found in mapping!");
+            return;
+        }
+
+        bool success = await PetService.AddPetAsync(NewPet);
+        if (success)
+        {
+            Pets = await PetService.GetPetsAsync();
+            CloseModal();
+        }
+    }
+}
