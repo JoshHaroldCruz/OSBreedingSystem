@@ -1,0 +1,144 @@
+﻿@page "/PetFiles"
+
+<h3 class="page-title">📂 Pet Files</h3>
+
+<!-- Upload Section -->
+<div class="upload-container">
+    <label class="upload-label">Upload Pet File:</label>
+    <input type="file" class="upload-input">
+    <button class="upload-btn">Upload</button>
+</div>
+
+<!-- Search & Filter -->
+<div class="search-filter">
+    <input type="text" placeholder="Search files..." class="search-bar">
+    <select class="filter-dropdown">
+        <option value="all">All</option>
+        <option value="images">Images</option>
+        <option value="documents">Documents</option>
+    </select>
+    <button class="filter-btn">Filter</button>
+</div>
+
+<!-- Pet Files Table -->
+<table class="styled-table">
+    <thead>
+        <tr>
+            <th>File Name</th>
+            <th>Type</th>
+            <th>Upload Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Max_Vaccine_Record.pdf</td>
+            <td>Document</td>
+            <td>2024-02-15</td>
+            <td>
+                <button class="view-btn">👁 View</button>
+                <button class="download-btn">⬇ Download</button>
+                <button class="delete-btn">🗑 Delete</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Bella_Health_Report.png</td>
+            <td>Image</td>
+            <td>2024-02-14</td>
+            <td>
+                <button class="view-btn">👁 View</button>
+                <button class="download-btn">⬇ Download</button>
+                <button class="delete-btn">🗑 Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- Styles for Consistency -->
+<style>
+    .page-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: white;
+    }
+
+    .upload-container {
+        background: linear-gradient(45deg, #512bdf, #8a2be2);
+        padding: 15px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .upload-label {
+        color: white;
+        font-weight: bold;
+    }
+
+    .upload-input {
+        flex: 1;
+    }
+
+    .upload-btn {
+        background: white;
+        color: #512bdf;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .search-filter {
+        margin-top: 15px;
+        display: flex;
+        gap: 10px;
+    }
+
+    .search-bar, .filter-dropdown, .filter-btn {
+        padding: 8px;
+        border-radius: 5px;
+    }
+
+    .styled-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+        .styled-table th, .styled-table td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .styled-table th {
+            background: #512bdf;
+            color: white;
+        }
+
+    .view-btn, .download-btn, .delete-btn {
+        margin-right: 5px;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .view-btn {
+        background: #8a2be2;
+        color: white;
+    }
+
+    .download-btn {
+        background: #28a745;
+        color: white;
+    }
+
+    .delete-btn {
+        background: #dc3545;
+        color: white;
+    }
+</style>

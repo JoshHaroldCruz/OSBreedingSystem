@@ -1,0 +1,164 @@
+﻿@page "/Dashboard"
+
+<h3>Dashboard</h3>
+
+<div class="dashboard-container">
+    <div class="dashboard-cards">
+        <div class="card">
+            <h4>Total Pets</h4>
+            <p class="count">120</p>
+        </div>
+        <div class="card">
+            <h4>Pets to be Bred Today</h4>
+            <p class="count">15</p>
+        </div>
+        <div class="card">
+            <h4>Breeding Success Rate</h4>
+            <p class="count">85%</p>
+        </div>
+    </div>
+
+    <!-- Recent Activities -->
+    <div class="recent-activities">
+        <h4>Recent Activities</h4>
+        <ul>
+            <li>🐶 Max (Dog) was bred today ✅</li>
+            <li>🐱 Luna (Cat) successfully gave birth! 🎉</li>
+            <li>🦜 Coco (Parrot) check-up scheduled 📅</li>
+        </ul>
+    </div>
+
+    <!-- Breeding Schedule -->
+    <div class="breeding-schedule">
+        <h4>Breeding Schedule</h4>
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Pet Name</th>
+                <th>Breed</th>
+                <th>Cage No.</th>
+                <th>Status</th>
+            </tr>
+            <tr>
+                <td>2024-02-15</td>
+                <td>Max</td>
+                <td>German Shepherd</td>
+                <td>10</td>
+                <td>Scheduled</td>
+            </tr>
+            <tr>
+                <td>2024-02-16</td>
+                <td>Bella</td>
+                <td>Persian Cat</td>
+                <td>5</td>
+                <td>Scheduled</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Health & Check-up Reminders -->
+    <div class="health-checkups">
+        <h4>Health & Check-up Reminders</h4>
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Pet Name</th>
+                <th>Vet</th>
+                <th>Status</th>
+            </tr>
+            <tr>
+                <td>2024-02-18</td>
+                <td>Max</td>
+                <td>Dr. Smith</td>
+                <td>Upcoming</td>
+            </tr>
+            <tr>
+                <td>2024-02-20</td>
+                <td>Luna</td>
+                <td>Dr. Brown</td>
+                <td>Upcoming</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Upcoming Births -->
+    <div class="upcoming-births">
+        <h4>Upcoming Births</h4>
+        <table>
+            <tr>
+                <th>Breeding Name</th>
+                <th>Female Pet</th>
+                <th>Expected Date</th>
+                <th>Status</th>
+            </tr>
+            <tr>
+                <td>Max & Luna</td>
+                <td>Luna (Cat)</td>
+                <td>2024-03-01</td>
+                <td>Confirmed</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<style>
+    .dashboard-container {
+        padding: 20px;
+    }
+
+    .dashboard-cards {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    .card {
+        background: linear-gradient(to right, #512bdf, #a133ff);
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        width: 30%;
+    }
+
+    .count {
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    h4 {
+        margin-bottom: 10px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    th {
+        background: #512bdf;
+        color: white;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    li {
+        background: #f8f8f8;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 5px;
+    }
+</style>
+
+@code {
+    // No backend functionality yet.
+}

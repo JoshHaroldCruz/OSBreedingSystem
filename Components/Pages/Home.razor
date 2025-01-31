@@ -1,9 +1,106 @@
 ﻿@page "/"
 
-<h1>Home</h1>
+<div class="home-container">
+    <!-- Welcome Banner -->
+    <div class="banner">
+        <h1>Welcome to the Pet Breeding System! 🐾</h1>
+        <p>Manage your pets, breeding schedules, and health records with ease.</p>
+    </div>
 
+    <!-- Quick Navigation -->
+    <div class="quick-links">
+        <div class="card" onclick="navigateTo('/MyPets')">
+            <h3>🐶 My Pets</h3>
+            <p>View and manage all registered pets.</p>
+        </div>
+        <div class="card" onclick="navigateTo('/Breed')">
+            <h3>🐾 Breeding</h3>
+            <p>Monitor breeding schedules and success rates.</p>
+        </div>
+        <div class="card" onclick="navigateTo('/PetFiles')">
+            <h3>📁 Pet Files</h3>
+            <p>Access and upload pet-related documents.</p>
+        </div>
+    </div>
 
+    <!-- Recent System Updates -->
+    <div class="updates">
+        <h2>📢 Recent Updates</h2>
+        <ul>
+            <li>✅ New pet record added: <strong>Max (Dog)</strong></li>
+            <li>🐣 Successful breeding event recorded for <strong>Luna (Cat)</strong></li>
+            <li>🩺 Health check-up scheduled for <strong>Coco (Parrot)</strong></li>
+        </ul>
+    </div>
 
-@code {
+    <!-- Breeding Tips -->
+    <div class="breeding-tips">
+        <h2>💡 Breeding Tips</h2>
+        <p>Proper breeding requires careful tracking of pet health, compatibility, and genetics.</p>
+        <ul>
+            <li>✔ Ensure both pets are healthy before breeding.</li>
+            <li>✔ Track their breeding history for better results.</li>
+            <li>✔ Provide the right nutrition and care for expecting pets.</li>
+        </ul>
+    </div>
+</div>
 
-}
+<style>
+    .home-container {
+        padding: 20px;
+    }
+
+    .banner {
+        background: linear-gradient(to right, #512bdf, #8b5cf6);
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .quick-links {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .card {
+        background: linear-gradient(to right, #6a11cb, #2575fc);
+        color: white;
+        padding: 15px;
+        border-radius: 8px;
+        text-align: center;
+        width: 200px;
+        cursor: pointer;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease;
+    }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+    .updates, .breeding-tips {
+        background: #f9f9f9;
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 20px;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li {
+        margin: 5px 0;
+    }
+</style>
+
+<script>
+    function navigateTo(route) {
+        window.location.href = route;
+    }
+</script>
